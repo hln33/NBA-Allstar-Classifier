@@ -1,13 +1,21 @@
 import pandas as pd
+import numpy as np
+from nba_api.stats.static import players
 from nba_api.stats.endpoints import playercareerstats
 
-def main():
-    # Nikola Jokić
-    career = playercareerstats.PlayerCareerStats(player_id='203999')
+# constants
+OUT_DIR = 'data'
 
-    # pandas data frames (optional: pip install pandas)
-    df = career.get_data_frames()[0]
-    print(df)
+
+def main():
+    nba_players = players.get_players()
+    df = pd.DataFrame(nba_players)
+    # print(df)
+
+    kareem = playercareerstats.PlayerCareerStats(player_id='76003')
+    kareem = kareem.get_data_frames()[0]
+
+    kareem.to_csv(f'{OUT_DIR}/kareem.csv')
 
 
 if __name__ == '__main__':
