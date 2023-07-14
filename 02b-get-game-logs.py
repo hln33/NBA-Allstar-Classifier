@@ -12,15 +12,15 @@ def main():
     input_dir = pathlib.Path(IN_DIR)
     output_dir = pathlib.Path(OUT_DIR)
 
-    kareem_logs = playergamelogs.PlayerGameLogs(
-        player_id_nullable='76003',
-        season_nullable='1969-70',
-        season_segment_nullable=SeasonSegmentNullable.pre_all_star
+    old_logs = playergamelogs.PlayerGameLogs(
+        player_id_nullable='77116',
+        season_nullable='1950-51',
+        # season_segment_nullable=SeasonSegmentNullable.pre_all_star
     )
-    kareem_logs = kareem_logs.get_data_frames()[0]
-    print(kareem_logs)
+    old_logs = old_logs.get_data_frames()[0]
+    print(old_logs)
 
-    kareem_logs.to_csv('kareem.csv')
+    old_logs.to_csv('old_logs.csv')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,47 @@
+,SEASON_ID,PLAYER_ID,PLAYER_NAME,NICKNAME,TEAM_ID,TEAM_ABBREVIATION,TEAM_NAME,GAME_ID,GAME_DATE,MATCHUP,WL,MIN,FGM,FGA,FG_PCT,FG3M,FG3A,FG3_PCT,FTM,FTA,FT_PCT,OREB,DREB,REB,AST,STL,BLK,TOV,PF,PTS,PLUS_MINUS,VIDEO_AVAILABLE
+0,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000350,1951-03-17,BAL vs. INO,L,0,1,,,,,,0,1,0.0,,,,,,,,,2,,0
+1,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000345,1951-03-15,BAL vs. ROC,W,0,5,,,,,,4,5,0.8,,,,,,,,,14,,0
+2,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000337,1951-03-11,BAL vs. NYK,W,0,0,,,,,,2,2,1.0,,,,,,,,3.0,2,,0
+3,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000333,1951-03-08,BAL @ PHW,L,0,2,,,,,,3,3,1.0,,,,,,,,,7,,0
+4,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000330,1951-03-07,BAL vs. PHW,L,0,4,,,,,,2,2,1.0,,,,,,,,,10,,0
+5,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000317,1951-03-03,BAL vs. BOS,L,0,5,,,,,,2,2,1.0,,,,,,,,,12,,0
+6,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000311,1951-02-28,BAL @ TCB,L,0,1,,,,,,0,0,,,,,,,,,,2,,0
+7,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000309,1951-02-27,BAL @ INO,L,0,2,,,,,,1,4,0.25,,,,,,,,,5,,0
+8,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000300,1951-02-24,BAL vs. BOS,W,0,1,,,,,,0,1,0.0,,,,,,,,,2,,0
+9,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000297,1951-02-22,BAL @ BOS,L,0,1,,,,,,0,0,,,,,,,,,3.0,2,,0
+10,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000293,1951-02-21,BAL vs. PHW,L,0,1,,,,,,1,2,0.5,,,,,,,,,3,,0
+11,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000289,1951-02-20,BAL @ ROC,L,0,5,,,,,,5,5,1.0,,,,,,,,,15,,0
+12,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000282,1951-02-17,BAL vs. FTW,W,0,4,,,,,,2,2,1.0,,,,,,,,,10,,0
+13,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000279,1951-02-15,BAL @ INO,L,0,1,,,,,,0,0,,,,,,,,,,2,,0
+14,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000275,1951-02-14,BAL @ MNL,L,0,5,,,,,,1,2,0.5,,,,,,,,,11,,0
+15,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000270,1951-02-11,BAL vs. SYR,L,0,0,,,,,,0,0,,,,,,,,,,0,,0
+16,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000257,1951-02-07,BAL @ SYR,W,0,2,,,,,,1,2,0.5,,,,,,,,,5,,0
+17,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000245,1951-02-03,BAL vs. NYK,L,0,0,,,,,,0,0,,,,,,,,,0.0,0,,0
+18,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000238,1951-01-31,BAL @ NYK,L,0,3,3.0,1.0,,,,0,2,0.0,,,,0.0,,,,1.0,6,,0
+19,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000218,1951-01-23,BAL @ MNL,L,0,6,,,,,,0,2,0.0,,,,,,,,,12,,0
+20,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000211,1951-01-20,BAL vs. INO,W,0,0,,,,,,0,0,,,,,,,,,,0,,0
+21,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000203,1951-01-17,BAL vs. TCB,W,0,0,,,,,,0,1,0.0,,,,,,,,,0,,0
+22,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000194,1951-01-13,BAL @ NYK,L,0,0,2.0,0.0,,,,0,0,,,,,1.0,,,,1.0,0,,0
+23,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000187,1951-01-10,BAL vs. ROC,L,0,1,,,,,,0,0,,,,,,,,,2.0,2,,0
+24,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000181,1951-01-07,BAL @ SYR,L,0,1,,,,,,0,1,0.0,,,,,,,,4.0,2,,0
+25,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000177,1951-01-06,BAL vs. PHW,W,0,3,11.0,0.273,,,,1,3,0.333,,,6.0,4.0,,,,3.0,7,,0
+26,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000172,1951-01-04,BAL @ PHW,L,0,3,,,,,,0,0,,,,,,,,,,6,,0
+27,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000168,1951-01-03,BAL @ WAS,L,0,1,,,,,,3,4,0.75,,,,,,,,,5,,0
+28,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000164,1951-01-01,BAL vs. WAS,W,0,2,,,,,,2,2,1.0,,,,,,,,,6,,0
+29,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000155,1950-12-30,BAL vs. SYR,L,0,1,,,,,,0,0,,,,,,,,,,2,,0
+30,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000150,1950-12-27,BAL @ MNL,L,0,2,,,,,,2,2,1.0,,,,,,,,,6,,0
+31,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000144,1950-12-25,BAL @ TCB,L,0,2,,,,,,3,5,0.6,,,,,,,,,7,,0
+32,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000133,1950-12-20,BAL vs. MNL,W,0,3,,,,,,4,5,0.8,,,,,,,,3.0,10,,0
+33,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000122,1950-12-16,BAL vs. BOS,W,0,1,,,,,,0,0,,,,,,,,,,2,,0
+34,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000117,1950-12-13,BAL vs. TCB,W,0,1,,,,,,1,2,0.5,,,,,,,,,3,,0
+35,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000112,1950-12-12,BAL @ ROC,L,0,2,,,,,,1,2,0.5,,,,,,,,,5,,0
+36,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000110,1950-12-10,BAL @ SYR,W,0,3,,,,,,0,0,,,,,,,,,,6,,0
+37,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000105,1950-12-09,BAL vs. PHW,W,0,1,,,,,,0,2,0.0,,,,,,,,,2,,0
+38,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000097,1950-12-06,BAL vs. ROC,L,0,1,,,,,,0,0,,,,,,,,,,2,,0
+39,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000090,1950-12-03,BAL @ BOS,L,0,2,,,,,,1,1,1.0,,,,,,,,,5,,0
+40,21950,77116,Gene James,Gene,1610610024,BAL,Baltimore Bullets,0025000086,1950-12-02,BAL vs. SYR,L,0,0,,,,,,1,1,1.0,,,,,,,,,1,,0
+41,21950,77116,Gene James,Gene,1610612752,NYK,New York Knicks,0025000059,1950-11-22,NYK @ BAL,W,0,0,,,,,,0,0,,,,,,,,,0.0,0,,0
+42,21950,77116,Gene James,Gene,1610612752,NYK,New York Knicks,0025000050,1950-11-19,NYK @ SYR,L,0,0,,,,,,0,0,,,,,,,,,6.0,0,,0
+43,21950,77116,Gene James,Gene,1610612752,NYK,New York Knicks,0025000045,1950-11-18,NYK vs. PHW,W,0,1,1.0,1.0,,,,0,0,,,,,1.0,,,,4.0,2,,0
+44,21950,77116,Gene James,Gene,1610612752,NYK,New York Knicks,0025000014,1950-11-05,NYK @ TCB,L,0,0,,,,,,1,1,1.0,,,,,,,,1.0,1,,0
+45,21950,77116,Gene James,Gene,1610612752,NYK,New York Knicks,0025000011,1950-11-04,NYK @ TCB,L,0,0,,,,,,0,1,0.0,,,,,,,,0.0,0,,0
