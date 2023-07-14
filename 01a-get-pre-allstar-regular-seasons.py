@@ -6,7 +6,7 @@ from nba_api.stats.library.parameters import SeasonSegmentNullable
 IN_DIR = 'data'
 OUT_DIR = 'data'
 START_YEAR = 1951
-END_YEAR = 2023
+END_YEAR = 2022
 
 
 def get_seasons(start_year, end_year):
