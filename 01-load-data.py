@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import multiprocessing as mp
 import time
 import requests.exceptions
@@ -57,7 +56,7 @@ def main():
     batch1 = q.get()
     batch2 = q.get()
     stats = pd.concat([batch1, batch2], ignore_index=True)
-    stats.to_csv(f'{OUT_DIR}/stats.csv')
+    stats.to_csv(f'{OUT_DIR}/regular_seasons.csv')
 
     p1.join()
     p2.join()
