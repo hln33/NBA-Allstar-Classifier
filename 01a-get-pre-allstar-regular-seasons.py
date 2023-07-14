@@ -6,7 +6,7 @@ from nba_api.stats.library.parameters import SeasonSegmentNullable
 IN_DIR = 'data'
 OUT_DIR = 'data'
 START_YEAR = 1951
-END_YEAR = 2022
+END_YEAR = 2023
 
 
 def get_seasons(start_year, end_year):
@@ -35,10 +35,11 @@ def get_pre_allstar_seasons(season_strs) -> pd.DataFrame:
     return df
 
 
+# this only can only get seasons after 1996 (seems like there is a year cutoff with this api call)
 def main():
     seasons_since_first_allstar = get_seasons(START_YEAR, END_YEAR)
     pre_allstar_seasons = get_pre_allstar_seasons(seasons_since_first_allstar)
-    pre_allstar_seasons.to_csv(f'{OUT_DIR}/pre_allstar_regular_seasons')
+    pre_allstar_seasons.to_csv(f'{OUT_DIR}/pre_allstar_regular_seasons.csv')
 
 
 if __name__ == '__main__':
