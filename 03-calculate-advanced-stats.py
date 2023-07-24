@@ -22,25 +22,27 @@ def calc_league_stats(teams: pd.DataFrame) -> pd.DataFrame:
 # source: https://www.basketball-reference.com/about/per.html
 def calc_per(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame):
     player = pd.merge(player, team, on=['TEAM_ID', 'SEASON'], suffixes=('', '_TM'))
+    player = pd.merge(player, league, on='SEASON', suffixes=('', '_L'))
     print(player)
 
     player['uPER'] = (1 / player['MIN']) * (
         player['FG3M']
         + (2/3) * player['AST']
-        + (2 - league['factor'] * (player['AST_TM']/player['FGM_TM'])) * player['FGM']
+        + (2 - player['factor'] * (player['AST_TM']/player['FGM_TM'])) * player['FGM']
         + (player['FTM'] * 0.5 *
             (1 + (1 - (player['AST_TM']/player['FGM_TM'])) + (2/3) * (player['AST_TM']/player['FGM_TM']))
            )
-        - league['VOP'] * player['TOV']
-        - league['VOP'] * league['DRB%'] * (player['FGA'] - player['FGM'])
-        - league['VOP'] * 0.44 * (0.44 + (0.56 * league['DRB%'])) * (player['FTA'] - player['FTM'])
-        + league['VOP'] * (1 - league['DRB%']) * (player['REB'] - player['OREB'])
-        + league['VOP'] * league['DRB%'] * player['OREB']
-        + league['VOP'] * player['STL']
-        + league['VOP'] * league['DRB%'] * player['BLK']
-        - player['PF'] * ((league['FTM']/league['PF']) - 0.44 * (league['FTA']/league['PF']) * league['VOP'])
+        - player['VOP'] * player['TOV']
+        - player['VOP'] * player['DRB%'] * (player['FGA'] - player['FGM'])
+        - player['VOP'] * 0.44 * (0.44 + (0.56 * player['DRB%'])) * (player['FTA'] - player['FTM'])
+        + player['VOP'] * (1 - player['DRB%']) * (player['REB'] - player['OREB'])
+        + player['VOP'] * player['DRB%'] * player['OREB']
+        + player['VOP'] * player['STL']
+        + player['VOP'] * player['DRB%'] * player['BLK']
+        - player['PF'] * ((player['FTM_L']/player['PF_L']) - 0.44 * (player['FTA_L']/player['PF_L']) * player['VOP'])
     )
     print(player)
+    print(player[player['PLAYER_NAME'] == 'Kobe Bryant'])
 
 
 def main():
