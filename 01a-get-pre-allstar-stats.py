@@ -3,8 +3,7 @@ from nba_api.stats.endpoints import leaguedashplayerstats, leaguedashteamstats
 from nba_api.stats.library.parameters import SeasonSegmentNullable
 
 # constants
-IN_DIR = 'data'
-OUT_DIR = 'data'
+OUT_DIR = 'raw_data'
 START_YEAR = 1996
 END_YEAR = 2022
 

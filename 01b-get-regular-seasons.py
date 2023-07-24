@@ -6,7 +6,7 @@ from nba_api.stats.static import players
 from nba_api.stats.endpoints import playercareerstats
 
 # constants
-OUT_DIR = 'data'
+OUT_DIR = 'raw_data'
 COLS = ['PLAYER_NAME', 'PLAYER_ID', 'SEASON_ID', 'LEAGUE_ID', 'TEAM_ID', 'TEAM_ABBREVIATION', 'PLAYER_AGE', 'GP',
         'GS', 'MIN', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'OREB', 'DREB',
         'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'PTS']
@@ -46,7 +46,7 @@ def process_stat_batch(player_data: pd.DataFrame, shared_queue):
 def main():
     player_data = get_players()
 
-    # use multiple processes to speed up data gathering
+    # use multiple processes to speed up raw_data gathering
     q = mp.Queue()
     p1 = mp.Process(target=process_stat_batch, args=(player_data[NUM_PLAYERS//2:], q))
     p2 = mp.Process(target=process_stat_batch, args=(player_data[:NUM_PLAYERS//2], q))

@@ -10,7 +10,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/data/pre_allstar_regular_seasons.csv">
+        <entry key="/data/pre_allstar_player_stats.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
