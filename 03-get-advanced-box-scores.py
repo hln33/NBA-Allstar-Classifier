@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import random
 import time
@@ -5,6 +6,8 @@ import requests.exceptions
 from nba_api.stats.endpoints import boxscoreadvancedv2
 
 # constants
+IN_DIR = 'cleaned_data/'
+OUT_DIR = 'raw_data/'
 HARD_COOLDOWN = 150
 CACHE_THRESHOLD = 100
 RELOAD_ALL_BOX_SCORES = False
@@ -17,11 +20,10 @@ def cooldown_api():
 
 
 def get_box_score(game_id):
-    # API may time out, so we can try making the same call after waiting some time
     try:
         data = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=game_id)
     except requests.exceptions.ReadTimeout:
-        print('request timed out')
+        print(f'request timed out; Trying again after {HARD_COOLDOWN} secs')
         time.sleep(HARD_COOLDOWN)
         data = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=game_id)
     cooldown_api()
@@ -37,14 +39,13 @@ def get_box_score(game_id):
 
 # get advanced box score stats to be used in the calculation of advanced stats
 # ** this step may take a long time to run (hours) since the api acts as a bottleneck **
-def main():
-    game_logs = pd.read_csv('cleaned_data/cleaned_game_logs.csv', dtype={'GAME_ID': str})
-    already_loaded_box_scores = pd.read_csv('raw_data/advanced_box_scores.csv', dtype={'GAME_ID': str})
+def main(input_path, output_path):
+    game_logs = pd.read_csv(input_path, dtype={'GAME_ID': str})
+    already_loaded_box_scores = pd.read_csv(output_path, dtype={'GAME_ID': str})
 
-    counter = 0
     box_scores = pd.DataFrame() if RELOAD_ALL_BOX_SCORES else already_loaded_box_scores
-    game_ids = game_logs['GAME_ID']
-    for _, game_id in game_ids.items():
+    counter = len(box_scores.index)
+    for _, game_id in game_logs['GAME_ID'].items():
         print(game_id)
 
         already_loaded = game_id in already_loaded_box_scores['GAME_ID'].values
@@ -62,10 +63,12 @@ def main():
         print(counter)
         if counter % CACHE_THRESHOLD == 0:
             print('saving intermediate results')
-            box_scores.to_csv('raw_data/advanced_box_scores.csv')
+            box_scores.to_csv(output_path, index=False)
 
-    box_scores.to_csv('raw_data/advanced_box_scores.csv')
+    box_scores.to_csv(output_path, index=False)
 
 
 if __name__ == '__main__':
-    main()
+    input_path = IN_DIR + sys.argv[1]
+    output_path = OUT_DIR + sys.argv[2]
+    main(input_path, output_path)
