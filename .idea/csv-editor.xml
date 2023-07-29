@@ -17,27 +17,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/data/pre_allstar_player_stats.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/data/pre_allstar_team_stats.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/data/regular_seasons.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/raw_data/advanced_box_scores.csv">
           <value>
             <Attribute>
@@ -46,6 +25,13 @@
           </value>
         </entry>
         <entry key="/raw_data/game_logs.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/raw_data/pre_allstar_player_stats.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -66,7 +52,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/test/gamelogs.csv">
+        <entry key="/test/player_stats_per.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -74,6 +60,13 @@
           </value>
         </entry>
         <entry key="/test/player_team.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/test/team_pace_stats.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
