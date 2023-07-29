@@ -3,11 +3,11 @@ import pandas as pd
 # constants
 IN_RAW_DIR = 'raw_data'
 IN_CLEAN_DIR = 'cleaned_data'
-OUT_DIR = 'final_data'
+OUT_DIR = 'raw_data'
 
 
 def calc_league_stats(teams: pd.DataFrame) -> pd.DataFrame:
-    agg_dict = {col: 'sum' if col != 'PACE' else 'mean' for col in teams.columns}
+    agg_dict = {col: 'mean' if col == 'PACE' else 'sum' for col in teams.columns}
     lg = teams.groupby('SEASON').agg(agg_dict)
     lg = lg[['FGM', 'FGA', 'FTM', 'FTA', 'PF', 'PTS', 'AST', 'OREB', 'REB', 'TOV', 'PACE']]
 
@@ -29,7 +29,7 @@ def get_team_pace(team_stats: pd.DataFrame, game_logs: pd.DataFrame, box_scores:
 
 # calculate PER (player efficiency rating)
 # source: https://www.basketball-reference.com/about/per.html
-def calc_per(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame):
+def calc_per(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame) -> pd.DataFrame:
     player = pd.merge(player, team, on=['TEAM_ID', 'SEASON'], suffixes=('', '_TM'))
     player = pd.merge(player, league, on='SEASON', suffixes=('', '_L'))
     print(player)
@@ -49,17 +49,17 @@ def calc_per(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame):
             + player['VOP'] * player['STL']
             + player['VOP'] * player['DRB%'] * player['BLK']
             - player['PF'] * (
-                        (player['FTM_L'] / player['PF_L']) - 0.44 * (player['FTA_L'] / player['PF_L']) * player['VOP'])
+                    (player['FTM_L'] / player['PF_L']) - 0.44 * (player['FTA_L'] / player['PF_L']) * player['VOP'])
     )
 
     player['aPER'] = (player['PACE_L'] / player['PACE']) * player['uPER']
     league_aPER_avg = player.groupby(by=['SEASON']).agg({'aPER': 'mean'})
+
     player = pd.merge(player, league_aPER_avg, on=['SEASON'], suffixes=('', '_L'))
     player['PER'] = player['aPER'] * (15 / player['aPER_L'])
 
-    player = player.sort_values('PER', ascending=False)
-    player = player[['PLAYER_NAME', 'SEASON', 'PER']]
-    player.to_csv('test/player_stats_per.csv', index=False)
+    player = player[['PLAYER_ID', 'SEASON', 'PER']]
+    return player
 
 
 def main():
@@ -67,22 +67,18 @@ def main():
     team_stats = pd.read_csv(f'{IN_RAW_DIR}/pre_allstar_team_stats.csv')
     game_logs = pd.read_csv(f'{IN_CLEAN_DIR}/cleaned_game_logs.csv')
     box_scores = pd.read_csv(f'{IN_RAW_DIR}/advanced_box_scores.csv')
-    # print(player_stats)
-    # print(team_stats)
-    # print(box_scores)
 
     team_pace = get_team_pace(team_stats, game_logs, box_scores)
     team_stats = pd.merge(team_stats, team_pace, on=['TEAM_ID', 'SEASON'])
-    # team_stats.to_csv('test/team_pace_stats.csv', index=False)
     league_stats = calc_league_stats(team_stats)
-    # print(league_stats)
-    # print(league_stats['PACE'])
 
-    calc_per(player_stats, team_stats, league_stats)
+    player_PER = calc_per(player_stats, team_stats, league_stats)
+    adv_player_stats = pd.merge(player_stats, player_PER, on=['PLAYER_ID', 'SEASON'])
+    adv_player_stats = adv_player_stats.sort_values('PER', ascending=False)
+    adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER']]
+    print(adv_player_stats)
 
-    # player_team = pd.merge(player_stats, team_stats, on=['TEAM_ID', 'SEASON'], suffixes=('', '_TM'))
-    # player_team.to_csv('test/player_team.csv')
-    # print(player_team)
+    adv_player_stats.to_csv(f'{OUT_DIR}/advanced_player_stats.csv')
 
 
 if __name__ == '__main__':
