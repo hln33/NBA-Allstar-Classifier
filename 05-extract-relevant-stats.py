@@ -3,27 +3,7 @@ import sys
 
 # constants
 IN_DIR = 'raw_data'
-OUT_DIR = 'cleaned_data'
-
-
-def filter_player_stats(player_stats: pd.DataFrame) -> pd.DataFrame:
-    player_stats = player_stats[[
-        'SEASON',
-        'PLAYER_ID',
-        'PLAYER_NAME',
-        'TEAM_ID',
-        'TEAM_ABBREVIATION',
-        'GP',
-        'MIN',
-        'PTS',
-        'REB',
-        'AST',
-        'STL',
-        'BLK',
-        'TOV',
-        'FG3M'
-    ]]
-    return player_stats
+OUT_DIR = 'final_data'
 
 
 def filter_box_scores(box_scores: pd.DataFrame) -> pd.DataFrame:
@@ -89,15 +69,13 @@ def main():
     adv_player_stats = pd.read_csv(f'{IN_DIR}/advanced_player_stats.csv')
     game_logs = pd.read_csv('cleaned_data/cleaned_game_logs.csv')
 
-    player_stats = filter_player_stats(player_stats)
-
     adv_player_box_scores = add_season_to_box_scores(adv_player_box_scores, game_logs)
     adv_player_box_scores = filter_box_scores(adv_player_box_scores)
     adv_player_box_scores = aggregate_player_box_scores(adv_player_box_scores)
 
     combined = combine(player_stats, adv_player_box_scores, adv_player_stats)
     combined = filter_combined_data(combined)
-    combined.to_csv('test/final_data.csv')
+    combined.to_csv(f'{OUT_DIR}/final_player_stats.csv')
 
 
 if __name__ == '__main__':
