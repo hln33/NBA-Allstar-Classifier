@@ -73,6 +73,7 @@ def main():
     league_stats = calc_league_stats(team_stats)
 
     player_PER = calc_per(player_stats, team_stats, league_stats)
+
     adv_player_stats = pd.merge(player_stats, player_PER, on=['PLAYER_ID', 'SEASON'])
     adv_player_stats = adv_player_stats.sort_values('PER', ascending=False)
     adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER']]
