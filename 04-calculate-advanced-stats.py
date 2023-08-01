@@ -67,18 +67,19 @@ def calc_points_produced(player: pd.DataFrame, team: pd.DataFrame) -> pd.DataFra
     player = pd.merge(player, team, on=['TEAM_ID', 'SEASON'], suffixes=('', '_TM'))
 
     player['Team_Scoring_Poss'] = (
-            player['FGM_TM'] + (1 - (1 - (player['FTM_TM'] / player['FTA_TM']))**2) * player['FTA_TM'] * 0.4
+            player['FGM_TM'] + (1 - (1 - (player['FTM_TM'] / player['FTA_TM'])) ** 2) * player['FTA_TM'] * 0.4
     )
     player['Team_Play%'] = player['Team_Scoring_Poss'] / (player['FGA_TM'] + player['FTA_TM'] * 0.4 + player['TOV_TM'])
     player['Team_ORB_Weight'] = (
-            ((1 - player['OREB_PCT']) * player['Team_Play%']) /
-            ((1 - player['OREB_PCT']) * player['Team_Play%'] * (1 - player['Team_Play%']))
+            (1 - player['OREB_PCT']) * player['Team_Play%']) / (
+            (1 - player['OREB_PCT']) * player['Team_Play%'] + player['OREB_PCT'] * (1 - player['Team_Play%'])
     )
     player['qAST'] = (
-            ((player['MIN'] / (player['MIN_TM'] / 5)) * (1.14 * ((player['AST_TM'] - player['AST']) / player['FGM_TM'])))
-            + ((((player['AST_TM'] / player['MIN_TM']) * player['MIN'] * 5 - player['AST']) /
-                ((player['FGM_TM'] / player['MIN_TM']) * player['MIN'] * 5 - player['FGM']))
-               * (1 - (player['MIN'] / (player['MIN_TM'] / 5))))
+            ((player['MIN'] / (player['MIN_TM'] / 5)) *
+             (1.14 * ((player['AST_TM'] - player['AST']) / player['FGM_TM']))) +
+            ((((player['AST_TM'] / player['MIN_TM']) * player['MIN'] * 5 - player['AST']) /
+             ((player['FGM_TM'] / player['MIN_TM']) * player['MIN'] * 5 - player['FGM'])) *
+            (1 - (player['MIN'] / (player['MIN_TM'] / 5))))
     )
 
     player['PProd_FG_Part'] = (
@@ -87,22 +88,22 @@ def calc_points_produced(player: pd.DataFrame, team: pd.DataFrame) -> pd.DataFra
     )
     player['PProd_AST_Part'] = (
             2 * ((player['FGM_TM'] - player['FGM'] + 0.5 * (player['FG3M_TM'] - player['FG3M'])) /
-                 (player['FGM_TM'] - player['FGM'])) * 0.5 *
+            (player['FGM_TM'] - player['FGM'])) * 0.5 *
             (((player['PTS_TM'] - player['FTM_TM']) - (player['PTS'] - player['FTM'])) /
              (2 * (player['FGA_TM'] - player['FGA']))) * player['AST']
     )
     player['PProd_ORB_Part'] = (
-            player['OREB'] * player['Team_ORB_Weight'] * player['Team_Play%'] *
-            (player['PTS_TM'] / (player['FGM_TM'] + (1 - (1 - (player['FTM_TM'] / player['FTA_TM']))**2)
-            * 0.4 * player['FTA_TM']))
+        player['OREB'] * player['Team_ORB_Weight'] * player['Team_Play%'] * (
+        player['PTS_TM'] / (player['FGM_TM'] + (1 - (1 - (player['FTM_TM'] / player['FTA_TM'])) ** 2) *
+        0.4 * player['FTA_TM']))
     )
     player['PProd'] = (
-            (player['PProd_FG_Part'] + player['PProd_AST_Part'] + player['FTM']) *
-            (1 - (player['OREB_TM'] / player['Team_Scoring_Poss']) * player['Team_ORB_Weight'] * player['Team_Play%']) +
-            player['PProd_ORB_Part']
+            (player['PProd_FG_Part'] + player['PProd_AST_Part'] + player['FTM']) * (
+            1 - (player['OREB_TM'] / player['Team_Scoring_Poss']) * player['Team_ORB_Weight'] *
+            player['Team_Play%']) + player['PProd_ORB_Part']
     )
 
-    player = player[['PLAYER_ID', 'PLAYER_NAME', 'SEASON', 'PProd']]
+    player = player[['PLAYER_ID', 'PLAYER_NAME', 'SEASON', 'PProd', 'PTS']]
     player = player.sort_values(by=['PProd'], ascending=False)
     player.to_csv('test/pprod_players.csv')
     print(player)
