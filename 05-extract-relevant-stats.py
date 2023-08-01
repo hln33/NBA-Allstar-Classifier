@@ -53,6 +53,7 @@ def add_season_to_box_scores(box_scores: pd.DataFrame, game_logs: pd.DataFrame) 
 
 
 def combine(player_stats: pd.DataFrame, box_scores: pd.DataFrame, adv_stats: pd.DataFrame) -> pd.DataFrame:
+    # source: https://stackoverflow.com/questions/19125091/pandas-merge-how-to-avoid-duplicating-columns
     def merge_and_drop_dupe_cols(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
         df1 = pd.merge(df1, df2, on=['SEASON', 'PLAYER_ID'], suffixes=('', '_y'))
         df1 = df1.drop(df1.filter(regex='_y$').columns, axis=1)

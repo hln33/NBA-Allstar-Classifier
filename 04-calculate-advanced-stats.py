@@ -62,6 +62,31 @@ def calc_per(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame) -> 
     return player
 
 
+# Source:
+# https://www.basketball-reference.com/about/ratings.html?__hstc=213859787.4cbbc20946b7a9135a926d6b4d34b58f.1690838112167.1690838112167.1690838112167.1&__hssc=213859787.1.1690838112168&__hsfp=2926660606
+def calc_points_produced(player: pd.DataFrame, team: pd.DataFrame) -> pd.DataFrame:
+    player = pd.merge(player, team, on=['TEAM_ID', 'SEASON'], suffixes=('', '_TM'))
+
+    player['qAST'] = (
+            ((player['MIN'] / (player['MIN_TM'] / 5))) * (
+                1.14 * ((player['AST_TM'] - player['AST']) / player['FGM_TM'])) +
+            ((((player['AST_TM'] / player['MIN_TM']) * player['MIN'] * 5 - player['AST']) /
+              ((player['FGM_TM'] / player['MIN_TM']) * player['MIN'] * 5 - player['FGM'])) *
+             (1 - (player['MIN'] / (player['MIN_TM'] / 5))))
+    )
+    player['PPRod_FG_Part'] = (
+            2 * (player['FGM'] + 0.5 * player['FG3M']) *
+            (1 - 0.5 * ((player['PTS'] - player['FTM']) / (2 * player['FGA'])) * player['qAST'])
+    )
+
+    player['PProd_AST_Part'] = (
+            2 * ((player['FGM_TM'] - player['FGM'] + 0.5 * (player['FG3M_TM'] - player['FG3M'])) /
+                 (player['FGM_TM'] - player['FGM'])) * 0.5 *
+            (((player['PTS_TM'] - player['FTM_TM']) - (player['PTS'] - player['FTM'])) /
+             (2 * (player['FGA_TM'] - player['FGA']))) * player['AST']
+    )
+
+
 def main():
     player_stats = pd.read_csv(f'{IN_RAW_DIR}/pre_allstar_player_stats.csv')
     team_stats = pd.read_csv(f'{IN_RAW_DIR}/pre_allstar_team_stats.csv')

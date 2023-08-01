@@ -9,7 +9,7 @@ from nba_api.stats.endpoints import boxscoreadvancedv2
 IN_DIR = 'cleaned_data/'
 OUT_DIR = 'raw_data/'
 HARD_COOLDOWN = 150
-CACHE_THRESHOLD = 1000
+CACHE_THRESHOLD = 100
 RELOAD_ALL_BOX_SCORES = False
 
 
