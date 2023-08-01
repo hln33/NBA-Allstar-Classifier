@@ -54,10 +54,10 @@ def try_save_intermediate_results(player_box_scores: pd.DataFrame,
 def main(input_path, output_player_path, output_team_path):
     game_logs = pd.read_csv(input_path, dtype={'GAME_ID': str})
     already_loaded_player_box_scores = pd.read_csv(output_player_path, dtype={'GAME_ID': str})
-    # already_loaded_team_box_scores = pd.read_csv(output_team_path, dtype={'GAME_ID': str})
+    already_loaded_team_box_scores = pd.read_csv(output_team_path, dtype={'GAME_ID': str})
 
     player_box_scores = pd.DataFrame() if RELOAD_ALL_BOX_SCORES else already_loaded_player_box_scores
-    # team_box_scores = pd.DataFrame() if RELOAD_ALL_BOX_SCORES else already_loaded_team_box_scores
+    team_box_scores = pd.DataFrame() if RELOAD_ALL_BOX_SCORES else already_loaded_team_box_scores
     counter = 0
     for _, game_id in game_logs['GAME_ID'].items():
         print(game_id)
@@ -72,22 +72,19 @@ def main(input_path, output_player_path, output_team_path):
             print("api returned no data:", game_id)
             continue
         player_box_scores = pd.concat([player_box_scores, data_frames[0]], ignore_index=True)
-        # team_box_scores = pd.concat([team_box_scores, data_frames[1]], ignore_index=True)
+        team_box_scores = pd.concat([team_box_scores, data_frames[1]], ignore_index=True)
 
         counter += 1
         try_save_intermediate_results(player_box_scores, counter)
         print(counter)
 
     player_box_scores.to_csv(output_player_path, index=False)
-    # team_box_scores.to_csv(output_team_path, index=False)
+    team_box_scores.to_csv(output_team_path, index=False)
 
 
 if __name__ == '__main__':
     input_path = IN_DIR + sys.argv[1]
     output_team_path = OUT_DIR + sys.argv[2]
     output_player_path = OUT_DIR + sys.argv[3]
-
-    # data = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id='0029600012')
-    # data.get_data_frames()[0].to_csv(output_player_path, index=False)
 
     main(input_path, output_player_path, output_player_path)

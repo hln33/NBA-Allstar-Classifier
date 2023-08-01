@@ -73,6 +73,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/test/pprod_players.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
