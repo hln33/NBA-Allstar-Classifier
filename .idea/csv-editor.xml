@@ -66,6 +66,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/test/marginal_offense.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/test/player_box_score.csv">
           <value>
             <Attribute>
@@ -74,6 +81,13 @@
           </value>
         </entry>
         <entry key="/test/pprod_players.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/test/win_shares.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
