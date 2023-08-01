@@ -41,7 +41,9 @@ def calc_league_stats(teams: pd.DataFrame) -> pd.DataFrame:
 def calc_per(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame) -> pd.DataFrame:
     player = pd.merge(player, team, on=['TEAM_ID', 'SEASON'], suffixes=('', '_TM'))
     player = pd.merge(player, league, on='SEASON', suffixes=('', '_L'))
+    # print(player)
 
+    player = player[player['MIN'] > 0]
     player['uPER'] = (1 / player['MIN']) * (
             player['FG3M']
             + (2 / 3) * player['AST']
@@ -59,10 +61,9 @@ def calc_per(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame) -> 
             - player['PF'] * (
                     (player['FTM_L'] / player['PF_L']) - 0.44 * (player['FTA_L'] / player['PF_L']) * player['VOP'])
     )
+    player['aPER'] = (player['PACE_L'] / player['PACE_TM']) * player['uPER']
 
-    player['aPER'] = (player['PACE_L'] / player['PACE']) * player['uPER']
     league_aPER_avg = player.groupby(by=['SEASON']).agg({'aPER': 'mean'})
-
     player = pd.merge(player, league_aPER_avg, on=['SEASON'], suffixes=('', '_L'))
     player['PER'] = player['aPER'] * (15 / player['aPER_L'])
 
@@ -146,8 +147,7 @@ def calc_total_possessions(player: pd.DataFrame, team: pd.DataFrame) -> pd.DataF
     )
     player['FGxPoss'] = (player['FGA'] - player['FGM']) * (1 - 1.07 * player['OREB_PCT'])
     player['FTxPoss'] = ((1 - (player['FTM'] / player['FTA'])) ** 2) * 0.4 * player['FTA']
-    player['TotPoss'] = player['ScPoss'] + player['FGxPoss'] + player['FTxPoss'] \
-        + player['TOV']
+    player['TotPoss'] = player['ScPoss'] + player['FGxPoss'] + player['FTxPoss'] + player['TOV']
 
     player = player[['PLAYER_ID', 'SEASON', 'TotPoss']]
     return player
@@ -156,18 +156,23 @@ def calc_total_possessions(player: pd.DataFrame, team: pd.DataFrame) -> pd.DataF
 # calculate WS (win shares)
 # source: https://www.basketball-reference.com/about/ws.html
 def calc_ws(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame) -> pd.DataFrame:
+    player_PProd = calc_points_produced(player, team)
+    player_TotPoss = calc_total_possessions(player, team)
+
     player = pd.merge(player, league, on=['SEASON'], suffixes=('', '_LG'))
     player = pd.merge(player, team, on=['TEAM_ID', 'SEASON'], suffixes=('', '_TM'))
+    player = pd.merge(player, player_PProd, on=['PLAYER_ID', 'SEASON'])
+    player = pd.merge(player, player_TotPoss, on=['PLAYER_ID', 'SEASON'])
 
     player['Marginal_Offense'] = player['PProd'] - 0.92 * player['PPP_LG'] * player['TotPoss']
     player['Marginal_PPW'] = 0.32 * player['PPG_LG'] * (player['PACE_TM'] / player['PACE_LG'])
     player['WS'] = player['Marginal_Offense'] / player['Marginal_PPW']
 
     player = player.sort_values('WS', ascending=False)
-    player = player[['PLAYER_NAME', 'SEASON', 'Marginal_Offense', 'WS']]
-    print(player)
-    print(player[player['PLAYER_NAME'] == 'LeBron James'])
-    player.to_csv('test/win_shares.csv')
+    player = player[['PLAYER_ID', 'SEASON', 'WS']]
+    # print(player)
+    # print(player[player['PLAYER_NAME'] == 'LeBron James'])
+    # player.to_csv('test/win_shares.csv')
 
     return player
 
@@ -180,25 +185,21 @@ def main():
     team_box_scores = pd.read_csv(f'{IN_RAW_DIR}/advanced_team_box_scores.csv')
     adv_team_stats = get_adv_team_stats(game_logs, team_box_scores)
 
-    team_stats = pd.merge(team_stats, adv_team_stats, on=['TEAM_ID', 'SEASON'])
-    league_stats = calc_league_stats(team_stats)
+    adv_team_stats = pd.merge(adv_team_stats, team_stats, on=['TEAM_ID', 'SEASON'])
+    league_stats = calc_league_stats(adv_team_stats)
 
     player_box_scores = pd.read_csv(f'{IN_RAW_DIR}/advanced_player_box_scores.csv')
     adv_player_stats = get_adv_player_stats(game_logs, player_box_scores)
     adv_player_stats = pd.merge(player_stats, adv_player_stats, on=['PLAYER_ID', 'SEASON'])
 
-    player_PER = calc_per(adv_player_stats, team_stats, league_stats)
-    player_PProd = calc_points_produced(adv_player_stats, team_stats)
-    player_TotPoss = calc_total_possessions(adv_player_stats, team_stats)
-
+    player_PER = calc_per(adv_player_stats, adv_team_stats, league_stats)
+    # print(player_PER)
+    player_WS = calc_ws(adv_player_stats, adv_team_stats, league_stats)
     adv_player_stats = pd.merge(adv_player_stats, player_PER, on=['PLAYER_ID', 'SEASON'])
-    adv_player_stats = pd.merge(adv_player_stats, player_PProd, on=['PLAYER_ID', 'SEASON'])
-    adv_player_stats = pd.merge(adv_player_stats, player_TotPoss, on=['PLAYER_ID', 'SEASON'])
+    adv_player_stats = pd.merge(adv_player_stats, player_WS, on=['PLAYER_ID', 'SEASON'])
 
-    calc_ws(adv_player_stats, adv_team_stats, league_stats)
-
-    adv_player_stats = adv_player_stats.sort_values('PProd', ascending=False)
-    adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER', 'PProd']]
+    adv_player_stats = adv_player_stats.sort_values('WS', ascending=False)
+    adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER', 'WS']]
     # print(adv_player_stats)
 
     adv_player_stats.to_csv(f'{OUT_DIR}/advanced_player_stats.csv')
