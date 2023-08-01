@@ -103,11 +103,8 @@ def calc_points_produced(player: pd.DataFrame, team: pd.DataFrame) -> pd.DataFra
             player['Team_Play%']) + player['PProd_ORB_Part']
     )
 
-    player = player[['PLAYER_ID', 'PLAYER_NAME', 'SEASON', 'PProd', 'PTS']]
-    player = player.sort_values(by=['PProd'], ascending=False)
-    player.to_csv('test/pprod_players.csv')
-    print(player)
-    # return player
+    player = player[['PLAYER_ID', 'SEASON', 'PProd']]
+    return player
 
 
 def main():
@@ -117,7 +114,6 @@ def main():
     box_scores = pd.read_csv(f'{IN_RAW_DIR}/advanced_team_box_scores.csv')
 
     adv_team_stats = get_adv_team_stats(team_stats, game_logs, box_scores)
-    # print(adv_team_stats)
     team_stats = pd.merge(team_stats, adv_team_stats, on=['TEAM_ID', 'SEASON'])
     league_stats = calc_league_stats(team_stats)
 
@@ -125,8 +121,9 @@ def main():
     player_PProd = calc_points_produced(player_stats, team_stats)
 
     adv_player_stats = pd.merge(player_stats, player_PER, on=['PLAYER_ID', 'SEASON'])
-    adv_player_stats = adv_player_stats.sort_values('PER', ascending=False)
-    adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER']]
+    adv_player_stats = pd.merge(adv_player_stats, player_PProd, on=['PLAYER_ID', 'SEASON'])
+    adv_player_stats = adv_player_stats.sort_values('PProd', ascending=False)
+    adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER', 'PProd']]
     print(adv_player_stats)
 
     adv_player_stats.to_csv(f'{OUT_DIR}/advanced_player_stats.csv')
