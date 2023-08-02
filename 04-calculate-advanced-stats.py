@@ -184,24 +184,20 @@ def main():
 
     team_box_scores = pd.read_csv(f'{IN_RAW_DIR}/advanced_team_box_scores.csv')
     adv_team_stats = get_adv_team_stats(game_logs, team_box_scores)
-
     adv_team_stats = pd.merge(adv_team_stats, team_stats, on=['TEAM_ID', 'SEASON'])
-    league_stats = calc_league_stats(adv_team_stats)
 
     player_box_scores = pd.read_csv(f'{IN_RAW_DIR}/advanced_player_box_scores.csv')
     adv_player_stats = get_adv_player_stats(game_logs, player_box_scores)
     adv_player_stats = pd.merge(player_stats, adv_player_stats, on=['PLAYER_ID', 'SEASON'])
 
+    league_stats = calc_league_stats(adv_team_stats)
     player_PER = calc_per(adv_player_stats, adv_team_stats, league_stats)
-    # print(player_PER)
     player_WS = calc_ws(adv_player_stats, adv_team_stats, league_stats)
     adv_player_stats = pd.merge(adv_player_stats, player_PER, on=['PLAYER_ID', 'SEASON'])
     adv_player_stats = pd.merge(adv_player_stats, player_WS, on=['PLAYER_ID', 'SEASON'])
 
     adv_player_stats = adv_player_stats.sort_values('WS', ascending=False)
     adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER', 'WS']]
-    # print(adv_player_stats)
-
     adv_player_stats.to_csv(f'{OUT_DIR}/advanced_player_stats.csv')
 
 

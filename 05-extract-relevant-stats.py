@@ -37,7 +37,8 @@ def filter_combined_data(combined: pd.DataFrame) -> pd.DataFrame:
         'TS_PCT',
         'USG_PCT',
         'PIE',
-        'PER'
+        'PER',
+        'WS'
     ]]
     return combined
 
