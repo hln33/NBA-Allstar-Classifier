@@ -16,7 +16,7 @@ all_star_appearances = defaultdict(set)
 # rows to ignore when iterating the roster tables
 ignore_fields = set(['Team Totals', 'Reserves'])
 
-START_YEAR, END_YEAR = 1996, 2020
+START_YEAR, END_YEAR = 1996, 2024
 
 
 # unidecode doesn't catch the accented c in Peja's last name (Stojakovic), fix it
