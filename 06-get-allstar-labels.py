@@ -2,15 +2,16 @@
 
 from bs4 import BeautifulSoup
 from collections import defaultdict
+from unidecode import unidecode
 import pandas as pd
 import time
 import requests
 import csv
-from unidecode import unidecode
 
-# rows to ignore when iterating the roster tables
-IGNORE_FIELDS = {'Team Totals', 'Reserves'}
 START_YEAR, END_YEAR = 1996, 2024
+IGNORE_FIELDS = {'Team Totals', 'Reserves'}
+URL_TO_SCRAPE = 'https://www.basketball-reference.com/allstar/NBA_{}.html'
+OUTPUT_FILE = 'final_data/allstars.csv'
 
 
 # unidecode doesn't catch the accented c in Peja's last name (Stojakovic), fix it
@@ -26,11 +27,12 @@ def fix_name(full_name):
 
 
 def output_csv(allstar_set: defaultdict[set]):
-    with open('final_data/allstars.csv', 'w', newline='') as f:
+    with open(OUTPUT_FILE, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['Player', 'Years'])
         for player, years in allstar_set.items():
-            writer.writerow([player, ', '.join(map(str, years))])
+            for year in years:
+                writer.writerow([player, year])
 
 
 def main():
@@ -44,7 +46,7 @@ def main():
             continue
 
         print('Scraping ASG {} data...'.format(year))
-        html = requests.get('https://www.basketball-reference.com/allstar/NBA_{}.html'.format(year)).content
+        html = requests.get(URL_TO_SCRAPE.format(year)).content
         soup = BeautifulSoup(html, 'html.parser')
         all_stars_for_year = set([])
 
@@ -87,11 +89,6 @@ def main():
     for player, appearances in sorted_all_star_appearances:
         print('{}: {}'.format(player, appearances))
 
-    # with open('final_data/allstars.csv', 'w', newline='') as f:
-    #     writer = csv.writer(f)
-    #     writer.writerow(['Player', 'Years'])
-    #     for player, years in all_star_appearances.items():
-    #         writer.writerow([player, ', '.join(map(str, years))])
     output_csv(all_star_appearances)
 
 

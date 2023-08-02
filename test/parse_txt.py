@@ -17,7 +17,8 @@ print(data_dict.items())
 
 with open('../final_data/allstars.csv', 'w', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['Player', 'Years'])
+    writer.writerow(['Player', 'Year'])
 
     for player, years in data_dict.items():
-        writer.writerow([player, ', '.join(map(str, years))])
+        for year in years:
+            writer.writerow([player, year])
