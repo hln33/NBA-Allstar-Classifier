@@ -87,7 +87,7 @@ def main():
         print(all_star_appearances)
 
         # sleep to prevent website from blocking us
-        time.sleep(60)
+        time.sleep(20)
 
     sorted_all_star_appearances = sorted(
         [(player, sorted(list(appearances))) for player, appearances in all_star_appearances.items()],
