@@ -1,0 +1,32 @@
+,PLAYER_NAME,TEAM_ABBREVIATION,AS,PRED_AS,CORRECT_PRED
+21,Anthony Davis,LAL,0.0,1.0,no
+478,Jaylen Brown,BOS,1.0,0.0,no
+482,Anthony Edwards,MIN,1.0,0.0,no
+462,Jrue Holiday,MIL,1.0,0.0,no
+483,Jaren Jackson Jr.,MEM,1.0,0.0,no
+464,Paul George,LAC,1.0,0.0,no
+421,Trae Young,ATL,0.0,1.0,no
+211,Jimmy Butler,MIA,0.0,1.0,no
+193,James Harden,PHI,0.0,1.0,no
+473,Bam Adebayo,MIA,1.0,0.0,no
+474,Luka Doncic,DAL,1.0,1.0,yes
+481,Shai Gilgeous-Alexander,OKC,1.0,1.0,yes
+480,Ja Morant,MEM,1.0,1.0,yes
+479,Zion Williamson,NOP,1.0,1.0,yes
+477,Julius Randle,NYK,1.0,1.0,yes
+476,Domantas Sabonis,SAC,1.0,1.0,yes
+475,Jayson Tatum,BOS,1.0,1.0,yes
+484,Tyrese Haliburton,IND,1.0,1.0,yes
+471,Pascal Siakam,TOR,1.0,1.0,yes
+485,De'Aaron Fox,SAC,1.0,1.0,yes
+470,Nikola Jokic,DEN,1.0,1.0,yes
+469,Joel Embiid,PHI,1.0,1.0,yes
+468,Giannis Antetokounmpo,MIL,1.0,1.0,yes
+467,Stephen Curry,GSW,1.0,1.0,yes
+466,Damian Lillard,POR,1.0,1.0,yes
+465,DeMar DeRozan,CHI,1.0,1.0,yes
+463,Kyrie Irving,DAL,1.0,1.0,yes
+461,Kevin Durant,PHX,1.0,1.0,yes
+460,LeBron James,LAL,1.0,1.0,yes
+472,Donovan Mitchell,CLE,1.0,1.0,yes
+486,Lauri Markkanen,UTA,1.0,1.0,yes
