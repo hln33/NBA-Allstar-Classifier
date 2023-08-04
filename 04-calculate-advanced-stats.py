@@ -170,10 +170,6 @@ def calc_ws(player: pd.DataFrame, team: pd.DataFrame, league: pd.DataFrame) -> p
 
     player = player.sort_values('WS', ascending=False)
     player = player[['PLAYER_ID', 'SEASON', 'WS']]
-    # print(player)
-    # print(player[player['PLAYER_NAME'] == 'LeBron James'])
-    # player.to_csv('test/win_shares.csv')
-
     return player
 
 
@@ -198,7 +194,7 @@ def main():
 
     adv_player_stats = adv_player_stats.sort_values('WS', ascending=False)
     adv_player_stats = adv_player_stats[['PLAYER_NAME', 'PLAYER_ID', 'SEASON', 'PER', 'WS']]
-    adv_player_stats.to_csv(f'{OUT_DIR}/advanced_player_stats.csv')
+    adv_player_stats.to_csv(f'{OUT_DIR}/advanced_player_stats.csv', index=False)
 
 
 if __name__ == '__main__':

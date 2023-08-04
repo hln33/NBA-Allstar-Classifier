@@ -75,13 +75,12 @@ def main():
     adv_player_box_scores = add_season_to_box_scores(adv_player_box_scores, game_logs)
     adv_player_box_scores = filter_box_scores(adv_player_box_scores)
     adv_player_box_scores = aggregate_player_box_scores(adv_player_box_scores)
-
     adv_player_box_scores = adv_player_box_scores.sort_values(by=['SEASON', 'PLAYER_ID'])
-    adv_player_box_scores.to_csv('test/bs_adv.csv')
+    # adv_player_box_scores.to_csv('test/bs_adv.csv')
 
     combined = combine(player_stats, adv_player_box_scores, adv_player_stats)
     combined = filter_combined_data(combined)
-    combined.to_csv(f'{OUT_DIR}/final_player_stats.csv')
+    combined.to_csv(f'{OUT_DIR}/final_player_stats.csv', index=False)
 
 
 if __name__ == '__main__':
