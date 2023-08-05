@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-import sys
 
 # constants
 IN_DIR = 'raw_data'
@@ -76,7 +74,6 @@ def main():
     adv_player_box_scores = filter_box_scores(adv_player_box_scores)
     adv_player_box_scores = aggregate_player_box_scores(adv_player_box_scores)
     adv_player_box_scores = adv_player_box_scores.sort_values(by=['SEASON', 'PLAYER_ID'])
-    # adv_player_box_scores.to_csv('test/bs_adv.csv')
 
     combined = combine(player_stats, adv_player_box_scores, adv_player_stats)
     combined = filter_combined_data(combined)

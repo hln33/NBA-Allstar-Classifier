@@ -1,5 +1,4 @@
 # ADAPTED FROM: https://gist.github.com/cjporteo/90b3d56cc2b95c7f1fc120a82224c47c
-
 from bs4 import BeautifulSoup
 from collections import defaultdict
 from unidecode import unidecode
