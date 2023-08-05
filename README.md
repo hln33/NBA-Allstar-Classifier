@@ -26,7 +26,7 @@
 
 **Note:** <br>
 we recommend using the data provided in the repo and avoiding running steps 01 and 03 in their entirety as they involve 
-calling an API can take hours to run  
+calling an API and can take hours to run  
 
 ## Commands
 - Simply run each file without any command-line arguments (arguments are hard-coded)
