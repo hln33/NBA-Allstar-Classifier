@@ -8,6 +8,12 @@
 - Seaborn
 - Scikit-learn
 
+## Prior to Running
+* Please ensure the following folders exist
+  * raw_data
+  * cleaned_data
+  * final_data
+
 ## Order of Execution
 - 01-get-data.py
 - 02-clean-game-logs.py
@@ -19,7 +25,8 @@
 - 08-model-predict-ipynb
 
 **Note:** <br>
-we recommend using the data provided in the repo and avoiding running steps 01 and 03 in their entirety as they can take hours to run  
+we recommend using the data provided in the repo and avoiding running steps 01 and 03 in their entirety as they involve 
+calling an API can take hours to run  
 
 ## Commands
 - Simply run each file without any command-line arguments (arguments are hard-coded)
