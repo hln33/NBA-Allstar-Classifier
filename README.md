@@ -18,8 +18,11 @@
 - 07-create-training-data.ipynb
 - 08-model-predict-ipynb
 
+**Note:** <br>
+we recommend using the data provided in the repo and avoiding running steps 01 and 03 in their entirety as they can take hours to run  
+
 ## Commands
-- Simply run each file without any parameters (arguments are hard-coded)
+- Simply run each file without any command-line arguments (arguments are hard-coded)
 
 ## Inputs
 - **01-get-data.py**
